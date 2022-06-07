@@ -5,7 +5,7 @@ import Data from '../../data/todaysgame.json';
 const GameBoard = () => {
 
     const [guessBarText, setGuessBarText] = useState("");
-    const [guesses, setGuesses] = useState([]);
+    const [foundWords, setfoundWords] = useState([]);
     const [guessResult, setGuessResult] = useState("Spelling Bee");
     const [todaysLetters, setTodaysLetters] = useState([]);
     const [answers, setAnswers] = useState([]);
@@ -42,12 +42,12 @@ const GameBoard = () => {
         } else if (!answers.includes(guessBarText)) {
             console.log("Not A Valid Guess!");
             setGuessResult("Not A Valid Guess!");
-        } else if (guesses.includes(guessBarText)) {
+        } else if (foundWords.includes(guessBarText)) {
             console.log("Already Guessed!");
             setGuessResult("Already Guessed");
         } else { 
             console.log("GREAT!");
-            setGuesses(prevState => [...prevState, guessBarText]);
+            setfoundWords(prevState => [...prevState, guessBarText]);
             clearKeyboard();
             setGuessResult("GREAT!");
         }
@@ -91,6 +91,12 @@ const GameBoard = () => {
                 onClick={() => submitGuess()}
                 className="px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
             />
+
+            <ul>
+            {foundWords.map((word => (
+                <li key={ word }>{ word }</li>
+            )))}
+            </ul>
 
         </div>
     );
