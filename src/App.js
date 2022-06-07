@@ -1,10 +1,12 @@
+import GameBoard from "./components/Board/GameBoard";
 
-function App() {
-  return (
-    <div className="App">
-      <h1>Spelling Bee</h1>
-    </div>
-  );
+const App = () => {
+	return(
+	    <div>
+	      <h1>Spelling Bee</h1>
+	      <GameBoard />
+	    </div>
+	  );
 }
 
 export default App;
