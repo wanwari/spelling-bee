@@ -6,7 +6,7 @@ const GameBoard = () => {
 
     const [guessBarText, setGuessBarText] = useState("");
     const [wordsFound, setWordsFound] = useState([]);
-    const [guessResult, setGuessResult] = useState("Spelling Bee");
+    const [guessResult, setGuessResult] = useState("");
     const [todaysLetters, setTodaysLetters] = useState([]);
     const [answers, setAnswers] = useState([]);
     
@@ -55,42 +55,47 @@ const GameBoard = () => {
     }
 
     return(
-        <div>
-            <h1>{ guessResult }</h1>
+        <div className="text-center">
 
             <input
                 type="text"
                 id="guessBar" 
                 value={ guessBarText }
                 onChange={(event) => onGuessBarChange(event.target.value)}
-                className="form-control text-gray-700 border border-solid border-yellow-300 focus:outline-none focus:border-yellow-400"
+                className="form-control text-2xl p-2 text-gray-700 rounded-lg border border-solid border-yellow-300 focus:outline-none uppercase"
             />  
-            
+
+            <h1>{ guessResult }</h1>
+
+            <div className="my-4">
             <Keyboard 
                 letters={ todaysLetters } 
                 keyboardPressed={(keyPressed) => keyboardPressed(keyPressed)}  
             />
-            
-            <input 
-                type="button"
-                value="Delete"
-                onClick={() => deleteLetter()}
-                className="px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
-            />    
+            </div>
 
-            <input 
-                type="button"
-                value="Clear"
-                onClick={() => clearKeyboard()}
-                className="px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
-            />    
-        
-            <input 
-                type="button"
-                value="Enter"
-                onClick={() => submitGuess()}
-                className="px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
-            />
+            <div className="my-4">
+                <input 
+                    type="button"
+                    value="Delete"
+                    onClick={() => deleteLetter()}
+                    className="px-8 py-3 m-2 bg-slate-200 text-black font-medium text-xs uppercase rounded-lg hover:bg-slate-300 hover:drop-shadow-md cursor-pointer"
+                />    
+
+                <input 
+                    type="button"
+                    value="Clear"
+                    onClick={() => clearKeyboard()}
+                    className="px-8 py-3 m-2 bg-slate-200 text-black font-medium text-xs uppercase rounded-lg hover:bg-slate-300 hover:drop-shadow-md cursor-pointer"
+                />    
+            
+                <input 
+                    type="button"
+                    value="Enter"
+                    onClick={() => submitGuess()}
+                    className="px-8 py-3 m-2 bg-slate-200 text-black font-medium text-xs uppercase rounded-lg hover:bg-slate-300 hover:drop-shadow-md cursor-pointer"
+                />
+            </div>
 
             <p>Words Found: { wordsFound.length }/{ Data.numOfAnswers }</p>
             <ul>
