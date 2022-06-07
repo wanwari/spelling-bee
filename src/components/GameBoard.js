@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Keyboard from "./Keyboard";
-import Data from '../../data/todaysgame.json';
+import Data from '../data/todaysgame.json';
 
 const GameBoard = () => {
 
