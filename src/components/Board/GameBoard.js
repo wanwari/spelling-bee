@@ -1,11 +1,15 @@
 import { useState } from "react";
 import Keyboard from "./Keyboard";
 
-const GameBoard = props => {
+const GameBoard = () => {
 
     const [guessBarText, setGuessBarText] = useState("");
     const onGuessBarChange = (text) => {
         setGuessBarText(text);
+    }
+
+    const keyboardPressed = key => {
+        console.log("[GameBoard] Key pressed: " + key)
     }
 
     return(
@@ -20,7 +24,10 @@ const GameBoard = props => {
                 className="form-control text-gray-700 border border-solid border-yellow-300 focus:outline-none focus:border-yellow-400"
             />  
             
-            <Keyboard letters={['a', 'c', 'd', 'm', 'r', 't']} />
+            <Keyboard 
+                letters={['a', 'c', 'd', 'm', 'r', 't']} 
+                keyboardPressed={(keyPressed) => keyboardPressed(keyPressed)}  
+            />
 
         </div>
     );

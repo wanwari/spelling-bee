@@ -1,7 +1,8 @@
-const Keyboard = ({ letters }) => {
+const Keyboard = ({ letters, keyboardPressed }) => {
 
     const clickButton = letter => {
         console.log(letter);
+        keyboardPressed(letter);
     }
     return(
         <div>
