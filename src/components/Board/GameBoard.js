@@ -4,12 +4,21 @@ import Keyboard from "./Keyboard";
 const GameBoard = () => {
 
     const [guessBarText, setGuessBarText] = useState("");
+
     const onGuessBarChange = (text) => {
         setGuessBarText(text);
     }
 
     const keyboardPressed = key => {
-        console.log("[GameBoard] Key pressed: " + key)
+        setGuessBarText(guessBarText + key)
+    }
+
+    const clearKeyboard = () => {
+        setGuessBarText("");
+    }
+
+    const deleteLetter = () => {
+        setGuessBarText(guessBarText.substring(0, guessBarText.length-1))
     }
 
     return(
@@ -28,7 +37,18 @@ const GameBoard = () => {
                 letters={['a', 'c', 'd', 'm', 'r', 't']} 
                 keyboardPressed={(keyPressed) => keyboardPressed(keyPressed)}  
             />
+            
+            <input 
+                type="button"
+                value="Delete"
+                onClick={() => deleteLetter()}
+            />    
 
+            <input 
+                type="button"
+                value="Clear"
+                onClick={() => clearKeyboard()}
+            />    
         </div>
     );
 }
