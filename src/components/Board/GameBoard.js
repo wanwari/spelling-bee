@@ -1,52 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Keyboard from "./Keyboard";
+import Data from '../../data/todaysgame.json';
 
 const GameBoard = () => {
 
     const [guessBarText, setGuessBarText] = useState("");
     const [guesses, setGuesses] = useState([]);
     const [guessResult, setGuessResult] = useState("Spelling Bee");
-    const todaysLetters = ['n', 'a', 'e', 'h', 'o', 'p', 'y'];
+    const [todaysLetters, setTodaysLetters] = useState([]);
+    const [answers, setAnswers] = useState([]);
     
-    const answers =  [   
-        "aeon",
-        "annoy",
-        "anon",
-        "anyhoo",
-        "anyone",
-        "apnea",
-        "happen",
-        "henna",
-        "hone",
-        "honey",
-        "hyena",
-        "hyphen",
-        "naan",
-        "nana",
-        "nanny",
-        "nape",
-        "neap",
-        "nene",
-        "neon",
-        "none",
-        "noon",
-        "nope",
-        "open",
-        "paean",
-        "pane",
-        "payphone",
-        "peahen",
-        "peen",
-        "penne",
-        "penny",
-        "peon",
-        "peony",
-        "phone",
-        "phono",
-        "phony",
-        "pone",
-        "pony"
-    ];
+    useEffect(() => {
+        setTodaysLetters(Data.letters);
+        setAnswers(Data.answers);
+    }, []);
 
     const onGuessBarChange = (text) => {
         setGuessBarText(text);
@@ -65,7 +32,7 @@ const GameBoard = () => {
     }
 
     const submitGuess = () => {
-
+        
         if (guessBarText.length < 4) {
             console.log("Too Short!");
             setGuessResult("Too Short!");
