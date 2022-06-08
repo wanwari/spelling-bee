@@ -62,21 +62,18 @@ const GameBoard = () => {
             event.preventDefault();
 
         if (guessBarText.length < 4) {
-            console.log("Too Short!");
             setGuessResult("Too Short!");
         } else if (!guessBarText.includes(todaysLetters[0])) {
-            console.log("Missing Key Letter")
             setGuessResult("Missing Key Letter");
         } else if (!answers.includes(guessBarText)) {
-            console.log("Not A Valid Guess!");
             setGuessResult("Not A Valid Guess!");
         } else if (wordsFound.includes(guessBarText)) {
-            console.log("Already Guessed!");
             setGuessResult("Already Guessed");
         } else { 
             setWordsFound(prevState => [...prevState, guessBarText]);
             clearKeyboard();
-            setGuessResult("GREAT!");
+            const pointsToAdd = calculatePoints(guessBarText);
+            setGuessResult("+" + pointsToAdd + " point(s)");
             setPoints(points + calculatePoints(guessBarText));
         }
     }
@@ -97,6 +94,8 @@ const GameBoard = () => {
                     />  
                 </form>
             </div>
+
+            <h1>{ guessResult }</h1>
 
             <div className="my-6">
             <Keyboard 
@@ -126,8 +125,6 @@ const GameBoard = () => {
                 />    
             
             </div>
-
-            <h1>{ guessResult }</h1>
 
             <p>Points: { points }</p>
             <p>Words Found: { wordsFound.length }/{ Data.numOfAnswers }</p>
