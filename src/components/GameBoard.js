@@ -71,11 +71,11 @@ const GameBoard = () => {
             setGuessResult("Already Guessed");
         } else { 
             setWordsFound(prevState => [...prevState, guessBarText]);
-            clearKeyboard();
             const pointsToAdd = calculatePoints(guessBarText);
             setGuessResult("+" + pointsToAdd + " point(s)");
             setPoints(points + calculatePoints(guessBarText));
         }
+        clearKeyboard();
     }
 
     return(
