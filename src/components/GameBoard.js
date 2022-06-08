@@ -53,7 +53,6 @@ const GameBoard = () => {
             clearKeyboard();
             setGuessResult("GREAT!");
         }
-       
     }
 
     return(
@@ -71,14 +70,14 @@ const GameBoard = () => {
                 />  
             </div>
 
-            <div className="my-4">
+            <div className="my-6">
             <Keyboard 
                 letters={ todaysLetters } 
                 keyboardPressed={(keyPressed) => keyboardPressed(keyPressed)}  
             />
             </div>
 
-            <div className="my-4">
+            <div className="my-6">
                 <input 
                     type="button"
                     value="Delete"
