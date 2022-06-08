@@ -11,6 +11,7 @@ const GameBoard = () => {
     const [todaysLetters, setTodaysLetters] = useState([]);
     const [answers, setAnswers] = useState([]);
     const [points, setPoints] = useState(0);
+    const [showAnswers, setShowAnswers] = useState(false);
     const guessInput = useRef(null);
     
     useEffect(() => {
@@ -32,7 +33,11 @@ const GameBoard = () => {
     }
 
     const deleteLetter = () => {
-        setGuessBarText(guessBarText.substring(0, guessBarText.length-1))
+        setGuessBarText(guessBarText.substring(0, guessBarText.length-1));
+    }
+
+    const toggleShowAnswers = () => {
+        setShowAnswers(!showAnswers);
     }
 
     const calculatePoints = word => {
@@ -136,7 +141,8 @@ const GameBoard = () => {
             )))}
             </ul>
 
-            <ul>
+            <button onClick={toggleShowAnswers} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Show Answers</button>
+            <ul className={showAnswers ? "block" : "hidden"}>
                 <Answers answers={answers} wordsFound={wordsFound} />
             </ul>
         </div>
