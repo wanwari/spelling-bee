@@ -1,17 +1,22 @@
+import Key from "./Key";
+
 const Keyboard = ({ letters, keyboardPressed }) => {
 
     return(
-        <div>
-            {letters.map((letter, index) => {
-                    const colour = (index === 0) ? "bg-yellow-300 block m-auto my-4" : "bg-slate-300";
-                    return <input 
-                        key={letter} 
-                        onClick={() => keyboardPressed(letter)} 
-                        type="button" 
-                        value={letter} 
-                        className={colour + "   px-4 py-3 m-2 text-black text-lg leading-tight uppercase rounded shadow-xl cursor-pointer"}
-                    />
-            })}
+        <div className="grid grid-rows3">
+            <div>
+                <Key letter={letters[1]} keyboardPressed={(keyPressed) => keyboardPressed(keyPressed)} mainLetter={false}  />
+                <Key letter={letters[2]} keyboardPressed={(keyPressed) => keyboardPressed(keyPressed)} mainLetter={false}  />
+            </div>
+            <div>
+                <Key letter={letters[3]} keyboardPressed={(keyPressed) => keyboardPressed(keyPressed)} mainLetter={false}  />
+                <Key letter={letters[0]} keyboardPressed={(keyPressed) => keyboardPressed(keyPressed)} mainLetter={true}  />
+                <Key letter={letters[4]} keyboardPressed={(keyPressed) => keyboardPressed(keyPressed)} mainLetter={false}  />
+            </div>
+            <div>
+                <Key letter={letters[5]} keyboardPressed={(keyPressed) => keyboardPressed(keyPressed)} mainLetter={false}  />
+                <Key letter={letters[6]} keyboardPressed={(keyPressed) => keyboardPressed(keyPressed)} mainLetter={false}  />
+            </div>
         </div>
     );
 }
