@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import Keyboard from "./Keyboard";
 import Data from '../data/todaysgame.json';
+import Answers from "./Answers";
 
 const GameBoard = () => {
 
@@ -135,6 +136,9 @@ const GameBoard = () => {
             )))}
             </ul>
 
+            <ul>
+                <Answers answers={answers} wordsFound={wordsFound} />
+            </ul>
         </div>
     );
 }
