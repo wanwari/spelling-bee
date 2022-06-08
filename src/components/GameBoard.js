@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Keyboard from "./Keyboard";
 import Data from '../data/todaysgame.json';
 
@@ -9,10 +9,12 @@ const GameBoard = () => {
     const [guessResult, setGuessResult] = useState("");
     const [todaysLetters, setTodaysLetters] = useState([]);
     const [answers, setAnswers] = useState([]);
+    const guessInput = useRef(null);
     
     useEffect(() => {
         setTodaysLetters(Data.letters);
         setAnswers(Data.answers);
+        guessInput.current.focus();
     }, []);
 
     const onGuessBarChange = (text) => {
@@ -57,15 +59,17 @@ const GameBoard = () => {
     return(
         <div className="text-center">
 
-            <input
-                type="text"
-                id="guessBar" 
-                value={ guessBarText }
-                onChange={(event) => onGuessBarChange(event.target.value)}
-                className="form-control text-2xl p-2 text-gray-700 rounded-lg border border-solid border-yellow-300 focus:outline-none uppercase"
-            />  
-
-            <h1>{ guessResult }</h1>
+            <div className="mt-6">
+                <input
+                    type="text"
+                    id="guessBar" 
+                    value={ guessBarText }
+                    placeholder="Type or click"
+                    ref={ guessInput }
+                    onChange={(event) => onGuessBarChange(event.target.value)}
+                    className="form-control text-2xl p-2 text-gray-700 rounded-lg uppercase border-yellow-300 border-b-2 text-center focus:outline-none"
+                />  
+            </div>
 
             <div className="my-4">
             <Keyboard 
@@ -79,23 +83,24 @@ const GameBoard = () => {
                     type="button"
                     value="Delete"
                     onClick={() => deleteLetter()}
-                    className="px-8 py-3 m-2 bg-slate-200 text-black font-medium text-xs uppercase rounded-lg hover:bg-slate-300 hover:drop-shadow-md cursor-pointer"
+                    className="px-8 py-3 m-2 bg-red-300 text-black border border-black font-medium text-xs uppercase rounded-lg hover:bg-red-400 hover:drop-shadow-md cursor-pointer"
                 />    
-
-                <input 
-                    type="button"
-                    value="Clear"
-                    onClick={() => clearKeyboard()}
-                    className="px-8 py-3 m-2 bg-slate-200 text-black font-medium text-xs uppercase rounded-lg hover:bg-slate-300 hover:drop-shadow-md cursor-pointer"
-                />    
-            
                 <input 
                     type="button"
                     value="Enter"
                     onClick={() => submitGuess()}
-                    className="px-8 py-3 m-2 bg-slate-200 text-black font-medium text-xs uppercase rounded-lg hover:bg-slate-300 hover:drop-shadow-md cursor-pointer"
+                    className="px-8 py-3 m-2 bg-green-200 text-black border border-black font-medium text-xs uppercase rounded-lg hover:bg-green-300 hover:drop-shadow-md cursor-pointer"
                 />
+                <input 
+                    type="button"
+                    value="Clear"
+                    onClick={() => clearKeyboard()}
+                    className="px-8 py-3 m-2 bg-transparent text-black border border-black font-medium text-xs uppercase rounded-lg hover:bg-slate-200 hover:drop-shadow-md cursor-pointer"
+                />    
+            
             </div>
+
+            <h1>{ guessResult }</h1>
 
             <p>Words Found: { wordsFound.length }/{ Data.numOfAnswers }</p>
             <ul>
