@@ -57,7 +57,9 @@ const GameBoard = () => {
         return points;
     }
 
-    const evaluateGuess = () => {
+    const evaluateGuess = (event) => {
+        if (event)
+            event.preventDefault();
 
         if (guessBarText.length < 4) {
             console.log("Too Short!");
@@ -83,15 +85,17 @@ const GameBoard = () => {
         <div className="text-center">
 
             <div className="mt-6">
-                <input
-                    type="text"
-                    id="guessBar" 
-                    value={ guessBarText }
-                    placeholder="Type or click"
-                    ref={ guessInput }
-                    onChange={(event) => onGuessBarChange(event.target.value)}
-                    className="form-control text-2xl p-2 text-gray-700 rounded-lg uppercase border-yellow-300 border-b-2 text-center focus:outline-none"
-                />  
+                <form onSubmit={evaluateGuess}>
+                    <input
+                        type="text"
+                        id="guessBar" 
+                        value={ guessBarText }
+                        placeholder="Type or click"
+                        ref={ guessInput }
+                        onChange={(event) => onGuessBarChange(event.target.value)}
+                        className="form-control text-2xl p-2 text-gray-700 rounded-lg uppercase border-yellow-300 border-b-2 text-center focus:outline-none"
+                    />  
+                </form>
             </div>
 
             <div className="my-6">
