@@ -3,7 +3,7 @@ const Keyboard = ({ letters, keyboardPressed }) => {
     return(
         <div>
             {letters.map((letter, index) => {
-                    const colour = (index === 0) ? "bg-yellow-300" : "bg-slate-300";
+                    const colour = (index === 0) ? "bg-yellow-300 block m-auto my-4" : "bg-slate-300";
                     return <input 
                         key={letter} 
                         onClick={() => keyboardPressed(letter)} 
