@@ -13,8 +13,8 @@ const getGameData = html => {
    
     const answers = getAnswers(htmlAnswerList);
     const pangram = getPangram(htmlAnswerList);
-    const gameLetters = getGameLetters(pangram)
     const keyLetter = getKeyLetter(html);
+    const gameLetters = getGameLetters(pangram, keyLetter)
 
     const gameData = {
         letters: gameLetters,
@@ -58,7 +58,7 @@ const getKeyLetter = data => {
 
 /*
  * Get the pangram for todays riddle
- * The panagram is the element surrounded by the <strong> tag
+ * The pangram is the element surrounded by the <strong> tag
 */
 const getPangram = htmlAnswerList => {
 
@@ -70,12 +70,13 @@ const getPangram = htmlAnswerList => {
 /*
  * Use the pangram to find the game letters
  * The pangram contains each letter (could be duplicate) so just take each letter
+ * Removes the key letter from array
 */
-const getGameLetters = pangram => {
+const getGameLetters = (pangram, keyLetter) => {
 
     let gameLetters = [];
     for (let i = 0; i < pangram.length; i++) {
-        if (!gameLetters.includes(pangram[i]))
+        if (!gameLetters.includes(pangram[i]) && pangram[i] != keyLetter)
             gameLetters.push(pangram[i]);
     }
 
@@ -87,7 +88,7 @@ app.get("/", (req, res) => {
     const url = "https://nytbee.com";
     fetch(url)
         .then(response => response.text())
-        .then(data => res.send(getGameData(data)));
+        .then(data => res.json(getGameData(data)));
 
 });
 
