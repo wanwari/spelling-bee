@@ -11,6 +11,7 @@ const GameBoard = () => {
     const [answers, setAnswers] = useState([]);
     const [points, setPoints] = useState(0);
     const [showAnswers, setShowAnswers] = useState(false);
+    const [answerBtnText, setAnswerBtnText] = useState("Show Answers");
     const guessInput = useRef(null);
     
     async function getGameData() {
@@ -51,6 +52,10 @@ const GameBoard = () => {
 
     const toggleShowAnswers = () => {
         setShowAnswers(!showAnswers);
+        if (showAnswers) 
+            setAnswerBtnText("Show Answers");
+        else
+            setAnswerBtnText("Hide Answers");
     }
 
     const calculatePoints = word => {
@@ -154,7 +159,7 @@ const GameBoard = () => {
             )))}
             </ul>
 
-            <button onClick={toggleShowAnswers} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Show Answers</button>
+            <button onClick={toggleShowAnswers} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">{ answerBtnText }</button>
             <ul className={showAnswers ? "block" : "hidden"}>
                 <Answers answers={answers} wordsFound={wordsFound} />
             </ul>
