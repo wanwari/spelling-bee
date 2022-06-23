@@ -80,7 +80,16 @@ const getGameLetters = (pangram, keyLetter) => {
             gameLetters.push(pangram[i]);
     }
 
-    return gameLetters; 
+    return mixGameLetters(gameLetters); 
+}
+
+const mixGameLetters = gameLetters => {
+
+    for (var i = gameLetters.length - 1; i > 0; i--) {
+        const ran = Math.floor(Math.random() * (i + 1));
+        [gameLetters[i], gameLetters[ran]] = [gameLetters[ran], gameLetters[i]];
+    }
+    return gameLetters;
 }
 
 app.get("/", (req, res) => {
