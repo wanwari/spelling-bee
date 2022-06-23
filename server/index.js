@@ -7,21 +7,23 @@ const app = express();
 * Parse HTML from nytbee.com to extract various information
 * Could use a library but where's the fun in that
 */
-const parseText = data => {
+const getGameData = html => {
 
-    const htmlAnswerList = data.substring(data.indexOf("<ul class=\"column-list\">"), data.indexOf("</ul>"))
+    const htmlAnswerList = html.substring(html.indexOf("<ul class=\"column-list\">"), html.indexOf("</ul>"))
    
     const answers = getAnswers(htmlAnswerList);
-    const panagram = getPangram(htmlAnswerList);
-    const gameLetters = getGameLetters(panagram)
-    const keyLetter = getKeyLetter(data);
+    const pangram = getPangram(htmlAnswerList);
+    const gameLetters = getGameLetters(pangram)
+    const keyLetter = getKeyLetter(html);
 
-    console.log("Letters: " + gameLetters);
-    console.log("Key Letter: " + keyLetter);
-    console.log("Panagram: " + panagram);
-    console.log("Answers: " + answers);
+    const gameData = {
+        letters: gameLetters,
+        keyLetters: keyLetter,
+        pangram: pangram,
+        answers: answers
+    };
 
-    getKeyLetter(data);
+    return gameData;
 }
 
 /*
@@ -81,10 +83,12 @@ const getGameLetters = pangram => {
 }
 
 app.get("/", (req, res) => {
+
     const url = "https://nytbee.com";
     fetch(url)
         .then(response => response.text())
-        .then(data => parseText(data));
+        .then(data => res.send(getGameData(data)));
+
 });
 
 const server = app.listen(8181, () => {
