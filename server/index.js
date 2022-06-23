@@ -1,7 +1,9 @@
 import fetch from 'node-fetch';
 import express from 'express';
+import cors from 'cors';
 
 const app = express();
+app.use(cors());
 
 /*
 * Parse HTML from nytbee.com to extract various information
