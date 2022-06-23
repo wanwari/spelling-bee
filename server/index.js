@@ -103,6 +103,6 @@ app.get("/", (req, res) => {
 
 });
 
-const server = app.listen(8181, () => {
+const server = app.listen(process.env.PORT || 8181, () => {
     console.log("[index.js] Listening at " + server.address().port);
 });
