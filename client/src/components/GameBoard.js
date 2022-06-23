@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import Keyboard from "./Keyboard";
-import Data from '../data/todaysgame.json';
 import Answers from "./Answers";
 
 const GameBoard = () => {
@@ -14,9 +13,23 @@ const GameBoard = () => {
     const [showAnswers, setShowAnswers] = useState(false);
     const guessInput = useRef(null);
     
+    async function getGameData() {
+        
+       fetch('http://localhost:8181/')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                setTodaysLetters([...data.keyLetters, ...data.letters]);
+                setAnswers(data.answers);
+            });
+        
+
+    }
+
     useEffect(() => {
-        setTodaysLetters(Data.letters);
-        setAnswers(Data.answers);
+        getGameData();
+        //setTodaysLetters(Data.letters);
+        //setAnswers(Data.answers);
         guessInput.current.focus();
     }, []);
 
@@ -133,7 +146,7 @@ const GameBoard = () => {
             </div>
 
             <p>Points: { points }</p>
-            <p>Words Found: { wordsFound.length }/{ Data.numOfAnswers }</p>
+            <p>Words Found: { wordsFound.length }/{ answers.length }</p>
         
             <ul>
             {wordsFound.map((word => (
