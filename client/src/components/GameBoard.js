@@ -16,7 +16,7 @@ const GameBoard = () => {
     
     async function getGameData() {
         
-       fetch('http://localhost:8181/')
+       fetch('https://spelling-bee1.herokuapp.com/')
             .then(response => response.json())
             .then(data => {
                 console.log(data)
