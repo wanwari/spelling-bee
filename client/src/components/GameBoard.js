@@ -2,131 +2,119 @@ import { useEffect, useRef, useState } from "react";
 import Keyboard from "./Keyboard";
 import Answers from "./Answers";
 import ControlButtons from "./ControlButtons";
-import Score from './Score';
+import Score from "./Score";
 import GuessBar from "./GuessBar";
 import WordsFound from "./WordsFound";
 
 const GameBoard = () => {
+	const [guessBarText, setGuessBarText] = useState("");
+	const [wordsFound, setWordsFound] = useState([]);
+	const [guessResult, setGuessResult] = useState("");
+	const [todaysLetters, setTodaysLetters] = useState([]);
+	const [answers, setAnswers] = useState([]);
+	const [points, setPoints] = useState(0);
+	const guessInput = useRef(null);
 
-    const [guessBarText, setGuessBarText] = useState("");
-    const [wordsFound, setWordsFound] = useState([]);
-    const [guessResult, setGuessResult] = useState("");
-    const [todaysLetters, setTodaysLetters] = useState([]);
-    const [answers, setAnswers] = useState([]);
-    const [points, setPoints] = useState(0);
-    const guessInput = useRef(null);
-    
-    async function getGameData() {
-        
-       fetch('https://spelling-bee1.herokuapp.com/')
-            .then(response => response.json())
-            .then(data => {
-                console.log(data)
-                setTodaysLetters([...data.keyLetters, ...data.letters]);
-                setAnswers(data.answers);
-            });
-    }
+	async function getGameData() {
+		fetch("https://spelling-bee1.herokuapp.com/")
+			.then((response) => response.json())
+			.then((data) => {
+				console.log(data);
+				setTodaysLetters([...data.keyLetters, ...data.letters]);
+				setAnswers(data.answers);
+			});
+	}
 
-    useEffect(() => {
-        getGameData();
-        guessInput.current.focus();
-    }, []);
+	useEffect(() => {
+		getGameData();
+		guessInput.current.focus();
+	}, []);
 
-    const onGuessBarChange = (text) => {
-        setGuessBarText(text);
-    }
+	const onGuessBarChange = (text) => {
+		setGuessBarText(text);
+	};
 
-    const keyboardPressed = key => {
-        setGuessBarText(guessBarText + key)
-    }
+	const keyboardPressed = (key) => {
+		setGuessBarText(guessBarText + key);
+	};
 
-    const clearKeyboard = () => {
-        setGuessBarText("");
-    }
+	const clearKeyboard = () => {
+		setGuessBarText("");
+	};
 
-    const deleteLetter = () => {
-        setGuessBarText(guessBarText.substring(0, guessBarText.length-1));
-    }
+	const deleteLetter = () => {
+		setGuessBarText(guessBarText.substring(0, guessBarText.length - 1));
+	};
 
-    const calculatePoints = word => {
-        let points = 0;
+	const calculatePoints = (word) => {
+		let points = 0;
 
-        if (word.length === 4) {
-            points += 1;
-        } else if (word.length > 4) {
-            points += word.length;
-        }
+		if (word.length === 4) {
+			points += 1;
+		} else if (word.length > 4) {
+			points += word.length;
+		}
 
-        let containsAll = true;
-        for (let i = 0; i < todaysLetters.length; i++) {
-            if (!word.includes(todaysLetters[i])) {
-                containsAll = false;
-                break;
-            }
-        } 
+		let containsAll = true;
+		for (let i = 0; i < todaysLetters.length; i++) {
+			if (!word.includes(todaysLetters[i])) {
+				containsAll = false;
+				break;
+			}
+		}
 
-        if (containsAll)
-            points += 7;
+		if (containsAll) points += 7;
 
-        return points;
-    }
+		return points;
+	};
 
-    const evaluateGuess = (event) => {
-        if (event)
-            event.preventDefault();
+	const evaluateGuess = (event) => {
+		if (event) event.preventDefault();
 
-        if (guessBarText.length < 4) {
-            setGuessResult("Too Short!");
-        } else if (!guessBarText.includes(todaysLetters[0])) {
-            setGuessResult("Missing Key Letter");
-        } else if (!answers.includes(guessBarText)) {
-            setGuessResult("Not A Valid Guess!");
-        } else if (wordsFound.includes(guessBarText)) {
-            setGuessResult("Already Guessed");
-        } else { 
-            setWordsFound(prevState => [guessBarText, ...prevState]);
-            const pointsToAdd = calculatePoints(guessBarText);
-            setGuessResult("+" + pointsToAdd + " point(s)");
-            setPoints(points + calculatePoints(guessBarText));
-        }
-        clearKeyboard();
-    }
+		if (guessBarText.length < 4) {
+			setGuessResult("Too Short!");
+		} else if (!guessBarText.includes(todaysLetters[0])) {
+			setGuessResult("Missing Key Letter");
+		} else if (!answers.includes(guessBarText)) {
+			setGuessResult("Not A Valid Guess!");
+		} else if (wordsFound.includes(guessBarText)) {
+			setGuessResult("Already Guessed");
+		} else {
+			setWordsFound((prevState) => [guessBarText, ...prevState]);
+			const pointsToAdd = calculatePoints(guessBarText);
+			setGuessResult("+" + pointsToAdd + " point(s)");
+			setPoints(points + calculatePoints(guessBarText));
+		}
+		clearKeyboard();
+	};
 
-    return(
-        <div className="text-center grid justify-items-center">
+	return (
+		<div className="text-center grid justify-items-center">
+			<GuessBar
+				evaluateGuess={(event) => evaluateGuess(event)}
+				guessBarText={guessBarText}
+				guessInput={guessInput}
+				onGuessBarChange={(text) => onGuessBarChange(text)}
+			/>
 
-            <GuessBar
-                evaluateGuess={(event) => evaluateGuess(event)}
-                guessBarText={guessBarText}
-                guessInput={guessInput}
-                onGuessBarChange={(text) => onGuessBarChange(text)}
-            /> 
+			<Keyboard
+				letters={todaysLetters}
+				keyboardPressed={(keyPressed) => keyboardPressed(keyPressed)}
+			/>
 
-            <Keyboard 
-                letters={ todaysLetters } 
-                keyboardPressed={(keyPressed) => keyboardPressed(keyPressed)}  
-            />
+			<ControlButtons
+				deleteLetter={() => deleteLetter()}
+				evaluateGuess={() => evaluateGuess()}
+				clearKeyboard={() => clearKeyboard()}
+			/>
 
-            <ControlButtons
-                deleteLetter={() => deleteLetter()} 
-                evaluateGuess={() => evaluateGuess()} 
-                clearKeyboard={() => clearKeyboard()} />
+			<Score points={points} guessResult={guessResult} />
 
-            <Score 
-                points={points} 
-                guessResult={guessResult}
-            /> 
+			<WordsFound wordsFound={wordsFound} answers={answers} />
 
-            <WordsFound 
-                wordsFound={wordsFound}
-                answers={answers} />
-
-            <Answers
-                answers={answers}
-                wordsFound={wordsFound} />
-
-        </div>
-    );
-}
+			<Answers answers={answers} wordsFound={wordsFound} />
+		</div>
+	);
+};
 
 export default GameBoard;

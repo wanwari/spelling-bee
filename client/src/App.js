@@ -1,11 +1,11 @@
 import GameBoard from "./components/GameBoard";
 
 const App = () => {
-	return(
-	    <div>
-	      <GameBoard />
-	    </div>
-	  );
-}
+	return (
+		<div>
+			<GameBoard />
+		</div>
+	);
+};
 
 export default App;
