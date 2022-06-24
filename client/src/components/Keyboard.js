@@ -3,7 +3,7 @@ import Key from "./Key";
 const Keyboard = ({ letters, keyboardPressed }) => {
 
     return(
-        <div>
+        <div className="my-6">
             <div>
                 <Key letter={letters[1]} keyboardPressed={(keyPressed) => keyboardPressed(keyPressed)} mainLetter={false}  />
                 <Key letter={letters[2]} keyboardPressed={(keyPressed) => keyboardPressed(keyPressed)} mainLetter={false}  />

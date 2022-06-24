@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import Keyboard from "./Keyboard";
 import Answers from "./Answers";
 import ControlButtons from "./ControlButtons";
+import Score from './Score';
 
 const GameBoard = () => {
 
@@ -122,19 +123,17 @@ const GameBoard = () => {
 
             <h1>{ guessResult }</h1>
 
-            <div className="my-6">
             <Keyboard 
                 letters={ todaysLetters } 
                 keyboardPressed={(keyPressed) => keyboardPressed(keyPressed)}  
             />
-            </div>
 
             <ControlButtons
                 deleteLetter={() => deleteLetter()} 
                 evaluateGuess={() => evaluateGuess()} 
                 clearKeyboard={() => clearKeyboard()} />
 
-            <p className="mb-2">Points: { points }</p>
+            <Score points={points} />
 
             { wordsFound.length > 0 &&
                 <div className="w-2/5 md:w-1/4">
