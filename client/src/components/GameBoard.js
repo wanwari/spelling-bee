@@ -103,7 +103,7 @@ const GameBoard = () => {
     }
 
     return(
-        <div className="text-center">
+        <div className="text-center grid justify-items-center">
 
             <div className="mt-6">
                 <form onSubmit={evaluateGuess}>
@@ -153,16 +153,20 @@ const GameBoard = () => {
             <p>Points: { points }</p>
             <p>Words Found: { wordsFound.length }/{ answers.length }</p>
         
-            <ul>
-            {wordsFound.map((word => (
-                <li key={ word }>{ word }</li>
-            )))}
-            </ul>
+            <div className="w-1/4 h-24 overflow-scroll m-2 p-2 bg-yellow-200">
+                <ul>
+                {wordsFound.map((word => (
+                    <li key={ word }>{ word }</li>
+                )))}
+                </ul>
+            </div>
 
             <button onClick={toggleShowAnswers} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">{ answerBtnText }</button>
-            <ul className={showAnswers ? "block" : "hidden"}>
-                <Answers answers={answers} wordsFound={wordsFound} />
-            </ul>
+            <div className="w-1/4 h-72 m-2 overflow-scroll">
+                <ul className={showAnswers ? "block" : "hidden"}>
+                    <Answers answers={answers} wordsFound={wordsFound} />
+                </ul>
+            </div>
         </div>
     );
 }
