@@ -3,6 +3,7 @@ import Keyboard from "./Keyboard";
 import Answers from "./Answers";
 import ControlButtons from "./ControlButtons";
 import Score from './Score';
+import GuessBar from "./GuessBar";
 
 const GameBoard = () => {
 
@@ -31,8 +32,6 @@ const GameBoard = () => {
 
     useEffect(() => {
         getGameData();
-        //setTodaysLetters(Data.letters);
-        //setAnswers(Data.answers);
         guessInput.current.focus();
     }, []);
 
@@ -107,19 +106,12 @@ const GameBoard = () => {
     return(
         <div className="text-center grid justify-items-center">
 
-            <div className="mt-6">
-                <form onSubmit={evaluateGuess}>
-                    <input
-                        type="text"
-                        id="guessBar" 
-                        value={ guessBarText }
-                        placeholder="Type or click"
-                        ref={ guessInput }
-                        onChange={(event) => onGuessBarChange(event.target.value)}
-                        className="form-control text-2xl p-2 text-gray-700 rounded-lg uppercase border-yellow-300 border-b-2 text-center focus:outline-none"
-                    />  
-                </form>
-            </div>
+            <GuessBar
+                evaluateGuess={(event) => evaluateGuess(event)}
+                guessBarText={guessBarText}
+                guessInput={guessInput}
+                onGuessBarChange={(text) => onGuessBarChange(text)}
+            /> 
 
             <h1>{ guessResult }</h1>
 
