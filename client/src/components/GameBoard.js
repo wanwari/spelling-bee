@@ -94,7 +94,7 @@ const GameBoard = () => {
         } else if (wordsFound.includes(guessBarText)) {
             setGuessResult("Already Guessed");
         } else { 
-            setWordsFound(prevState => [...prevState, guessBarText]);
+            setWordsFound(prevState => [guessBarText, ...prevState]);
             const pointsToAdd = calculatePoints(guessBarText);
             setGuessResult("+" + pointsToAdd + " point(s)");
             setPoints(points + calculatePoints(guessBarText));
