@@ -4,6 +4,7 @@ import Answers from "./Answers";
 import ControlButtons from "./ControlButtons";
 import Score from './Score';
 import GuessBar from "./GuessBar";
+import WordsFound from "./WordsFound";
 
 const GameBoard = () => {
 
@@ -127,19 +128,9 @@ const GameBoard = () => {
 
             <Score points={points} />
 
-            { wordsFound.length > 0 &&
-                <div className="w-2/5 md:w-1/4">
-                    <p>Words Found: { wordsFound.length }/{ answers.length }</p>
-                
-                    <div className="h-24 overflow-scroll m-2 p-2 bg-yellow-200">
-                        <ul>
-                        {wordsFound.map((word => (
-                            <li key={ word }>{ word }</li>
-                        )))}
-                        </ul>
-                    </div>
-                </div>
-            }       
+            <WordsFound 
+                wordsFound={wordsFound}
+                answers={answers} />
 
             <button onClick={toggleShowAnswers} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">{ answerBtnText }</button>
             <div className="w-2/5 md:w-1/4 h-72 m-2 overflow-scroll">
