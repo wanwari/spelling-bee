@@ -1,6 +1,9 @@
-const Score = ({points}) => {
+const Score = ({points, guessResult}) => {
     return(
-        <p className="mb-2">Points: { points }</p>
+        <div>
+            <p className="mb-2">Points: { points }</p>
+            <p className="mb-2">{guessResult}</p>
+        </div>
     );
 }
 

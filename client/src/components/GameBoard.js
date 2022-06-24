@@ -102,8 +102,6 @@ const GameBoard = () => {
                 onGuessBarChange={(text) => onGuessBarChange(text)}
             /> 
 
-            <h1>{ guessResult }</h1>
-
             <Keyboard 
                 letters={ todaysLetters } 
                 keyboardPressed={(keyPressed) => keyboardPressed(keyPressed)}  
@@ -114,7 +112,10 @@ const GameBoard = () => {
                 evaluateGuess={() => evaluateGuess()} 
                 clearKeyboard={() => clearKeyboard()} />
 
-            <Score points={points} />
+            <Score 
+                points={points} 
+                guessResult={guessResult}
+            /> 
 
             <WordsFound 
                 wordsFound={wordsFound}
