@@ -128,7 +128,7 @@ const GameBoard = () => {
             />
             </div>
 
-            <div className="my-6">
+            <div className="my-1">
                 <input 
                     type="button"
                     value="Delete"
@@ -150,16 +150,21 @@ const GameBoard = () => {
             
             </div>
 
-            <p>Points: { points }</p>
-            <p>Words Found: { wordsFound.length }/{ answers.length }</p>
-        
-            <div className="w-1/4 h-24 overflow-scroll m-2 p-2 bg-yellow-200">
-                <ul>
-                {wordsFound.map((word => (
-                    <li key={ word }>{ word }</li>
-                )))}
-                </ul>
-            </div>
+            <p className="mb-2">Points: { points }</p>
+
+            { wordsFound.length > 0 &&
+                <div>
+                    <p>Words Found: { wordsFound.length }/{ answers.length }</p>
+                
+                    <div className="h-24 overflow-scroll m-2 p-2 bg-yellow-200">
+                        <ul>
+                        {wordsFound.map((word => (
+                            <li key={ word }>{ word }</li>
+                        )))}
+                        </ul>
+                    </div>
+                </div>
+            }       
 
             <button onClick={toggleShowAnswers} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">{ answerBtnText }</button>
             <div className="w-1/4 h-72 m-2 overflow-scroll">
