@@ -6,6 +6,7 @@ import Score from "./Score";
 import GuessBar from "./GuessBar";
 import WordsFound from "./WordsFound";
 import Rules from "./Rules";
+import Cookies from "js-cookie";
 
 const GameBoard = () => {
 	const [guessBarText, setGuessBarText] = useState("");
@@ -29,6 +30,8 @@ const GameBoard = () => {
 	useEffect(() => {
 		getGameData();
 		guessInput.current.focus();
+		if (Cookies.get("wordsFoundCookie"))
+			setWordsFound(Cookies.get("wordsFoundCookie").split(","));
 	}, []);
 
 	const onGuessBarChange = (text) => {
@@ -103,6 +106,10 @@ const GameBoard = () => {
 			const pointsToAdd = calculatePoints(guessBarText);
 			setGuessResult("+" + pointsToAdd + " point(s)");
 			setPoints(points + calculatePoints(guessBarText));
+			Cookies.set("wordsFoundCookie", [guessBarText, ...wordsFound], {
+				path: "/",
+				secure: true,
+			});
 		}
 		clearKeyboard();
 	};
