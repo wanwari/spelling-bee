@@ -5,6 +5,7 @@ import ControlButtons from "./ControlButtons";
 import Score from "./Score";
 import GuessBar from "./GuessBar";
 import WordsFound from "./WordsFound";
+import Rules from "./Rules";
 
 const GameBoard = () => {
 	const [guessBarText, setGuessBarText] = useState("");
@@ -132,6 +133,8 @@ const GameBoard = () => {
 			<WordsFound wordsFound={wordsFound} answers={answers} />
 
 			<Answers answers={answers} wordsFound={wordsFound} />
+
+			<Rules />
 		</div>
 	);
 };
