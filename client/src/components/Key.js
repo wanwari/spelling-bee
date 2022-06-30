@@ -11,7 +11,7 @@ const Key = ({ letter, keyboardPressed, mainLetter }) => {
 			value={letter}
 			className={
 				colour +
-				"  px-6 py-5 text-4xl m-1.5 text-black uppercase rounded cursor-pointer"
+				"  w-20 h-20 text-4xl m-1.5 text-black uppercase rounded cursor-pointer"
 			}
 		/>
 	);
