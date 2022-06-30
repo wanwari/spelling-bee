@@ -46,6 +46,24 @@ const GameBoard = () => {
 		setGuessBarText(guessBarText.substring(0, guessBarText.length - 1));
 	};
 
+	const shuffleKeyboard = () => {
+		let tmpLetters = [...todaysLetters];
+		const todaysKey = todaysLetters[0];
+
+		for (var i = tmpLetters.length - 1; i > 0; i--) {
+			const ran = Math.floor(Math.random() * (i + 1));
+			[tmpLetters[i], tmpLetters[ran]] = [tmpLetters[ran], tmpLetters[i]];
+		}
+
+		let keyLetterPosition = tmpLetters.indexOf(todaysKey);
+
+		[tmpLetters[0], tmpLetters[keyLetterPosition]] = [
+			tmpLetters[keyLetterPosition],
+			tmpLetters[0],
+		];
+		setTodaysLetters(tmpLetters);
+	};
+
 	const calculatePoints = (word) => {
 		let points = 0;
 
@@ -106,6 +124,7 @@ const GameBoard = () => {
 				deleteLetter={() => deleteLetter()}
 				evaluateGuess={() => evaluateGuess()}
 				clearKeyboard={() => clearKeyboard()}
+				shuffleKeyboard={() => shuffleKeyboard()}
 			/>
 
 			<Score points={points} guessResult={guessResult} />
