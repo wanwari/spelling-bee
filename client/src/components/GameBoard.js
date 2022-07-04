@@ -32,6 +32,8 @@ const GameBoard = () => {
 		guessInput.current.focus();
 		if (Cookies.get("wordsFoundCookie"))
 			setWordsFound(Cookies.get("wordsFoundCookie").split(","));
+
+		if (Cookies.get("pointsCookie")) setPoints(Cookies.get("pointsCookie"));
 	}, []);
 
 	const onGuessBarChange = (text) => {
@@ -110,6 +112,14 @@ const GameBoard = () => {
 				path: "/",
 				secure: true,
 			});
+			Cookies.set(
+				"pointsCookie",
+				points + calculatePoints(guessBarText),
+				{
+					path: "/",
+					secure: true,
+				}
+			);
 		}
 		clearKeyboard();
 	};
