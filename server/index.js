@@ -1,5 +1,5 @@
 import fetch from "node-fetch";
-import express from "express";
+import express, { response } from "express";
 import cors from "cors";
 
 const app = express();
@@ -19,12 +19,13 @@ const getGameData = (html) => {
 	const pangram = getPangram(htmlAnswerList);
 	const keyLetter = getKeyLetter(html);
 	const gameLetters = getGameLetters(pangram, keyLetter);
-
+	const scoringTable = getScoringTable(html);
 	const gameData = {
 		letters: gameLetters,
 		keyLetters: keyLetter,
 		pangram: pangram,
 		answers: answers,
+		scoringTable: scoringTable,
 	};
 
 	return gameData;
@@ -95,6 +96,31 @@ const mixGameLetters = (gameLetters) => {
 		[gameLetters[i], gameLetters[ran]] = [gameLetters[ran], gameLetters[i]];
 	}
 	return gameLetters;
+};
+
+const getMaxPoints = (html) => {
+	const dataSubS = html.substring(html.indexOf("Maximum Puzzle Score"));
+	const scoreStart = dataSubS.substring(dataSubS.indexOf(":") + 2);
+	const score = scoreStart.substring(0, scoreStart.indexOf("<"));
+	return parseInt(score);
+};
+
+const getScoringTable = (html) => {
+	const maxPoints = getMaxPoints(html);
+
+	const scoringTable = {
+		beginner: 0,
+		goodStart: Math.round(maxPoints * 0.02),
+		movingUp: Math.round(maxPoints * 0.05),
+		good: Math.round(maxPoints * 0.08),
+		solid: Math.round(maxPoints * 0.15),
+		nice: Math.round(maxPoints * 0.25),
+		great: Math.round(maxPoints * 0.4),
+		amazing: Math.round(maxPoints * 0.5),
+		genius: Math.round(maxPoints * 0.7),
+		queenBee: maxPoints,
+	};
+	return scoringTable;
 };
 
 app.get("/", (req, res) => {
