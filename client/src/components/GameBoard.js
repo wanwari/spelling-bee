@@ -7,6 +7,7 @@ import GuessBar from "./GuessBar";
 import WordsFound from "./WordsFound";
 import Rules from "./Rules";
 import Cookies from "js-cookie";
+import ScoringRankings from "./ScoringRankings";
 
 const GameBoard = () => {
 	const [guessBarText, setGuessBarText] = useState("");
@@ -14,6 +15,7 @@ const GameBoard = () => {
 	const [guessResult, setGuessResult] = useState("");
 	const [todaysLetters, setTodaysLetters] = useState([]);
 	const [answers, setAnswers] = useState([]);
+	const [scoringTable, setScoringTable] = useState({});
 	const [points, setPoints] = useState(0);
 	const guessInput = useRef(null);
 
@@ -24,6 +26,8 @@ const GameBoard = () => {
 				console.log(data);
 				setTodaysLetters([...data.keyLetters, ...data.letters]);
 				setAnswers(data.answers);
+				setScoringTable(data.scoringTable);
+				console.log(data.scoringTable);
 			});
 	}
 
@@ -148,6 +152,11 @@ const GameBoard = () => {
 			<Score points={points} guessResult={guessResult} />
 
 			<WordsFound wordsFound={wordsFound} answers={answers} />
+
+			<ScoringRankings
+				currentScore={points}
+				scoringTable={scoringTable}
+			/>
 
 			<Answers answers={answers} wordsFound={wordsFound} />
 
