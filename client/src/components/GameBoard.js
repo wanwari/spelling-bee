@@ -37,7 +37,9 @@ const GameBoard = () => {
 		if (Cookies.get("wordsFoundCookie"))
 			setWordsFound(Cookies.get("wordsFoundCookie").split(","));
 
-		if (Cookies.get("pointsCookie")) setPoints(Cookies.get("pointsCookie"));
+		if (Cookies.get("pointsCookie")) {
+			setPoints(parseInt(Cookies.get("pointsCookie")));
+		}
 	}, []);
 
 	const onGuessBarChange = (text) => {
