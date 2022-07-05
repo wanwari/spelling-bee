@@ -23,11 +23,9 @@ const GameBoard = () => {
 		fetch("https://spelling-bee1.herokuapp.com/")
 			.then((response) => response.json())
 			.then((data) => {
-				console.log(data);
 				setTodaysLetters([...data.keyLetters, ...data.letters]);
 				setAnswers(data.answers);
 				setScoringTable(data.scoringTable);
-				console.log(data.scoringTable);
 			});
 	}
 
