@@ -2,7 +2,7 @@ import GameBoard from "./components/GameBoard";
 
 const App = () => {
 	return (
-		<div className="bg-green-50">
+		<div className="bg-blue-100">
 			<GameBoard />
 		</div>
 	);

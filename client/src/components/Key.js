@@ -1,7 +1,7 @@
 const Key = ({ letter, keyboardPressed, mainLetter }) => {
 	const colour = mainLetter
 		? "bg-yellow-300 md:hover:bg-yellow-400"
-		: "bg-slate-300 md:hover:bg-slate-400 md:hover:shadow-lg";
+		: "bg-white md:hover:bg-slate-400 md:hover:shadow-lg";
 
 	return (
 		<input
