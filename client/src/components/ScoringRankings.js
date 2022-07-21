@@ -1,42 +1,42 @@
 const ScoringRankings = ({ currentScore, scoringTable }) => {
 	const beginner =
-		currentScore > scoringTable.beginner
+		currentScore >= scoringTable.beginner
 			? "bg-green-300 p-2"
 			: "bg-red-300 p-2";
 	const goodStart =
-		currentScore > scoringTable.goodStart
+		currentScore >= scoringTable.goodStart
 			? "bg-green-300 p-2"
 			: "bg-red-300 p-2";
 	const movingUp =
-		currentScore > scoringTable.movingUp
+		currentScore >= scoringTable.movingUp
 			? "bg-green-300 p-2"
 			: "bg-red-300 p-2";
 	const good =
-		currentScore > scoringTable.good
+		currentScore >= scoringTable.good
 			? "bg-green-300 p-2"
 			: "bg-red-300 p-2";
 	const solid =
-		currentScore > scoringTable.solid
+		currentScore >= scoringTable.solid
 			? "bg-green-300 p-2"
 			: "bg-red-300 p-2";
 	const nice =
-		currentScore > scoringTable.nice
+		currentScore >= scoringTable.nice
 			? "bg-green-300 p-2"
 			: "bg-red-300 p-2";
 	const great =
-		currentScore > scoringTable.great
+		currentScore >= scoringTable.great
 			? "bg-green-300 p-2"
 			: "bg-red-300 p-2";
 	const amazing =
-		currentScore > scoringTable.amazing
+		currentScore >= scoringTable.amazing
 			? "bg-green-300 p-2"
 			: "bg-red-300 p-2";
 	const genius =
-		currentScore > scoringTable.genius
+		currentScore >= scoringTable.genius
 			? "bg-green-300 p-2"
 			: "bg-red-300 p-2";
 	const queenBee =
-		currentScore > scoringTable.queenBee
+		currentScore >= scoringTable.queenBee
 			? "bg-green-300 p-2"
 			: "bg-red-300 p-2";
 	return (
