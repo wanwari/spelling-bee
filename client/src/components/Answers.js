@@ -11,14 +11,14 @@ const Answers = (props) => {
 	};
 
 	return (
-		<div className="w-2/5 md:w-1/4 m-2">
+		<div className="w-4/5 md:w-1/4 my-2">
 			<button
 				onClick={toggleShowAnswers}
 				className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
 			>
 				{answerBtnText}
 			</button>
-			<div className="m-2 overflow-scroll">
+			<div className="my-2 overflow-scroll">
 				<ul className={showAnswers ? "block" : "hidden"}>
 					<div>
 						{props.answers.map((answer) => {

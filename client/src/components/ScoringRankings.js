@@ -40,7 +40,7 @@ const ScoringRankings = ({ currentScore, scoringTable }) => {
 			? "bg-green-300 p-2"
 			: "bg-red-300 p-2";
 	return (
-		<div>
+		<div className="w-4/5 md:w-1/4">
 			<ul>
 				<li className={beginner}>Beginner - {scoringTable.beginner}</li>
 				<li className={goodStart}>

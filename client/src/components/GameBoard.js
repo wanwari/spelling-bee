@@ -5,9 +5,9 @@ import ControlButtons from "./ControlButtons";
 import Score from "./Score";
 import GuessBar from "./GuessBar";
 import WordsFound from "./WordsFound";
-import Rules from "./Rules";
 import Cookies from "js-cookie";
 import ScoringRankings from "./ScoringRankings";
+import Help from "./Help";
 
 const GameBoard = () => {
 	const [guessBarText, setGuessBarText] = useState("");
@@ -137,6 +137,8 @@ const GameBoard = () => {
 
 	return (
 		<div className="text-center grid justify-items-center">
+			<Help />
+
 			<GuessBar
 				evaluateGuess={(event) => evaluateGuess(event)}
 				guessBarText={guessBarText}
@@ -170,8 +172,6 @@ const GameBoard = () => {
 			/>
 
 			<Answers answers={answers} wordsFound={wordsFound} />
-
-			<Rules />
 		</div>
 	);
 };
