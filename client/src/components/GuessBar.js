@@ -11,7 +11,7 @@ const GuessBar = (props) => {
 					onChange={(event) =>
 						props.onGuessBarChange(event.target.value)
 					}
-					className="form-control bg-white text-3xl p-2 w-2/3 text-gray-700 rounded-lg uppercase border-yellow-300 border-b-2 text-center focus:outline-none"
+					className="form-control bg-white text-3xl p-2 w-4/5 text-gray-700 rounded-lg uppercase border-yellow-300 border-b-2 text-center focus:outline-none"
 				/>
 			</form>
 		</div>
