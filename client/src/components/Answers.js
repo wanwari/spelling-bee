@@ -18,7 +18,7 @@ const Answers = (props) => {
 			>
 				{answerBtnText}
 			</button>
-			<div className="h-72 m-2 overflow-scroll">
+			<div className="m-2 overflow-scroll">
 				<ul className={showAnswers ? "block" : "hidden"}>
 					<div>
 						{props.answers.map((answer) => {
