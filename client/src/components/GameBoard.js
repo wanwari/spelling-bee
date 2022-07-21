@@ -18,11 +18,13 @@ const GameBoard = () => {
 	const [scoringTable, setScoringTable] = useState({});
 	const [points, setPoints] = useState(0);
 	const guessInput = useRef(null);
+	const [pangram, setPangram] = useState("");
 
 	async function getGameData() {
 		fetch("https://spelling-bee1.herokuapp.com/")
 			.then((response) => response.json())
 			.then((data) => {
+				setPangram(data.pangram);
 				setTodaysLetters([...data.keyLetters, ...data.letters]);
 				setAnswers(data.answers);
 				setScoringTable(data.scoringTable);
@@ -110,8 +112,14 @@ const GameBoard = () => {
 		} else {
 			setWordsFound((prevState) => [guessBarText, ...prevState]);
 			const pointsToAdd = calculatePoints(guessBarText);
-			setGuessResult("+" + pointsToAdd + " point(s)");
 			setPoints(points + calculatePoints(guessBarText));
+
+			if (guessBarText === pangram)
+				setGuessResult(
+					"+" + pointsToAdd + " point(s) | YOU FOUND THE PANGRAM!"
+				);
+			else setGuessResult("+" + pointsToAdd + " point(s)");
+			/*
 			Cookies.set("wordsFoundCookie", [guessBarText, ...wordsFound], {
 				path: "/",
 				secure: true,
@@ -124,6 +132,7 @@ const GameBoard = () => {
 					secure: true,
 				}
 			);
+			*/
 		}
 		clearKeyboard();
 	};
@@ -151,7 +160,11 @@ const GameBoard = () => {
 
 			<Score points={points} guessResult={guessResult} />
 
-			<WordsFound wordsFound={wordsFound} answers={answers} />
+			<WordsFound
+				wordsFound={wordsFound}
+				answers={answers}
+				pangram={pangram}
+			/>
 
 			<ScoringRankings
 				currentScore={points}

@@ -1,10 +1,4 @@
-const WordsFound = ({ wordsFound, answers }) => {
-	let listOfWordsFound = "";
-	wordsFound.forEach((word) => {
-		if (listOfWordsFound === "") listOfWordsFound = word;
-		else listOfWordsFound = listOfWordsFound + ", " + word;
-	});
-
+const WordsFound = ({ wordsFound, answers, pangram }) => {
 	return (
 		<div className="w-2/5 md:w-1/4">
 			{wordsFound.length > 0 && (
@@ -14,7 +8,17 @@ const WordsFound = ({ wordsFound, answers }) => {
 					</p>
 
 					<div className="h-20 overflow-scroll m-2 p-2 bg-yellow-200">
-						{listOfWordsFound}
+						<ul>
+							{wordsFound.map((word) => {
+								if (word === pangram)
+									return (
+										<li className="inline font-bold">
+											{word}{" "}
+										</li>
+									);
+								else return <li className="inline">{word} </li>;
+							})}
+						</ul>
 					</div>
 				</div>
 			)}
