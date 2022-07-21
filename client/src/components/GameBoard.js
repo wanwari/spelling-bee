@@ -119,7 +119,6 @@ const GameBoard = () => {
 					"+" + pointsToAdd + " point(s) | YOU FOUND THE PANGRAM!"
 				);
 			else setGuessResult("+" + pointsToAdd + " point(s)");
-			/*
 			Cookies.set("wordsFoundCookie", [guessBarText, ...wordsFound], {
 				path: "/",
 				secure: true,
@@ -132,7 +131,6 @@ const GameBoard = () => {
 					secure: true,
 				}
 			);
-			*/
 		}
 		clearKeyboard();
 	};
