@@ -19,7 +19,7 @@ const Help = () => {
 			{showHelp && (
 				<div className="absolute left-0 top-0 w-full h-full bg-blue-100">
 					<button
-						className="w-8 h-8 rounded-lg float-right bg-white"
+						className="w-8 h-8 rounded-lg float-right bg-white mt-2 mr-2"
 						onClick={() => toggleHelp()}
 					>
 						X

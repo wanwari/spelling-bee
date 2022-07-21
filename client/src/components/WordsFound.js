@@ -12,11 +12,19 @@ const WordsFound = ({ wordsFound, answers, pangram }) => {
 							{wordsFound.map((word) => {
 								if (word === pangram)
 									return (
-										<li className="inline font-bold">
+										<li
+											key={word}
+											className="inline font-bold"
+										>
 											{word}{" "}
 										</li>
 									);
-								else return <li className="inline">{word} </li>;
+								else
+									return (
+										<li key={word} className="inline">
+											{word}{" "}
+										</li>
+									);
 							})}
 						</ul>
 					</div>
