@@ -20,12 +20,16 @@ const getGameData = (html) => {
 	const keyLetter = getKeyLetter(html);
 	const gameLetters = getGameLetters(pangram, keyLetter);
 	const scoringTable = getScoringTable(html);
+	const hints = Object.fromEntries(
+		getTwoLetterList(answers, [keyLetter, ...gameLetters])
+	);
 	const gameData = {
 		letters: gameLetters,
 		keyLetters: keyLetter,
 		pangram: pangram,
 		answers: answers,
 		scoringTable: scoringTable,
+		hints: hints,
 	};
 
 	return gameData;
@@ -121,6 +125,27 @@ const getScoringTable = (html) => {
 		queenBee: maxPoints,
 	};
 	return scoringTable;
+};
+
+/*
+ * Count the number of occurances of every two letter
+ * starting combos for all the answers
+ */
+const getTwoLetterList = (answers, gameLetters) => {
+	const twoLetterHints = new Map();
+
+	for (let i = 0; i < answers.length; i++) {
+		const currentLetters = answers[i].charAt(0) + answers[i].charAt(1);
+		if (twoLetterHints.get(currentLetters)) {
+			twoLetterHints.set(
+				currentLetters,
+				twoLetterHints.get(currentLetters) + 1
+			);
+		} else {
+			twoLetterHints.set(currentLetters, 1);
+		}
+	}
+	return twoLetterHints;
 };
 
 app.get("/", (req, res) => {
