@@ -19,6 +19,7 @@ const GameBoard = () => {
 	const [points, setPoints] = useState(0);
 	const guessInput = useRef(null);
 	const [pangram, setPangram] = useState("");
+	const [hints, setHints] = useState({});
 
 	async function getGameData() {
 		fetch("https://spelling-bee1.herokuapp.com/")
@@ -28,6 +29,7 @@ const GameBoard = () => {
 				setTodaysLetters([...data.keyLetters, ...data.letters]);
 				setAnswers(data.answers);
 				setScoringTable(data.scoringTable);
+				setHints(data.hints);
 			});
 	}
 
@@ -137,7 +139,7 @@ const GameBoard = () => {
 
 	return (
 		<div className="text-center grid justify-items-center">
-			<Help />
+			<Help hints={hints} />
 
 			<GuessBar
 				evaluateGuess={(event) => evaluateGuess(event)}
