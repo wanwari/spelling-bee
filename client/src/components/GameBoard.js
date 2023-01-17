@@ -22,7 +22,7 @@ const GameBoard = () => {
 	const [hints, setHints] = useState({});
 
 	async function getGameData() {
-		fetch("https://spelling-bee-production.up.railway.app/")
+		fetch("https://spelling-bzz.onrender.com")
 			.then((response) => response.json())
 			.then((data) => {
 				setPangram(data.pangram);
